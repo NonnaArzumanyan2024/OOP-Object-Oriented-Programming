@@ -8,18 +8,20 @@ let a = new Foo();
 const fn = a.bar;
 fn();
 
+
 /*
 
 Description:
 This code defines a class `Foo` with a method `bar()` that logs `this`.
-The method is extracted and called independently, causing `this` to lose its original context.
+The method is extracted and called as a standalone function (`fn()`), which causes `this` to lose its original context.
 
-Output (in Node.js):
-Object [global] { ... }
+Output (in all modern environments, including Node.js and browsers):
+undefined
 
 Why:
-In non-strict mode, when a standalone function is invoked without an object context, `this` defaults to the global object in Node.js.
-Since `a.bar` was detached and called as `fn()`, `this` becomes `global`.
+Class methods are always executed in strict mode by default.
+In strict mode, when a standalone function is invoked without an object context, `this` is undefined.
+Since `a.bar` was detached and called as `fn()`, `this` becomes `undefined`.
 
 */
 
